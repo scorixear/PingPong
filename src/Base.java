@@ -21,4 +21,8 @@ public class Base {
         else
             this.x=((int)x-width/2);
     }
+
+    public void point() {
+        panel.point(this);
+    }
 }
