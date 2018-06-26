@@ -12,7 +12,7 @@ public class Ball {
     private Base base;
     private Base base2;
 
-    public Ball(int x, int y,int r, Base b, Base b2){
+    Ball(int x, int y, int r, Base b, Base b2){
         this.r=r;
         this.lastx=x;
         this.lasty=y;
@@ -32,7 +32,7 @@ public class Ball {
         velo.set(1,(velo.get(1)*2)/divisor);
     }
 
-    public void tick(int width, int height){
+    void tick(int width, int height){
         this.lastx=x;
         this.lasty=y;
         x+=velo.get(0);
@@ -44,14 +44,14 @@ public class Ball {
                 rotate(90,width);
 
             //velo.set(0,velo.get(0)*-1);
-            enlarge(1.05);
+            enlarge();
         } else if(x+r>width&&this.lastx+velo.get(0)<=width){
             if(lasty<y)
                 rotate(90,width);
             else
                 rotate(-90,width);
             //velo.set(0,velo.get(0)*-1);
-            enlarge(1.05);
+            enlarge();
         }
         if(x>base.x-r/2&&x<base.x+base.width&&y+r>=base.y&&y+r<=base.y+base.height&&this.lasty+velo.get(1)<=base.y){
             if(lastx<x)
@@ -59,7 +59,7 @@ public class Ball {
             else
                 rotate(90,width);
             //velo.set(1,velo.get(1)*-1);
-            enlarge(1.05);
+            enlarge();
 
         } else if(x>base2.x-r/2&&x<base2.x+base2.width&&y<=base2.y+base2.height&&y>=base2.y&&this.lasty-velo.get(1)<base.y){
             if(lastx<x)
@@ -67,7 +67,7 @@ public class Ball {
             else
                 rotate(-90,width);
             //velo.set(1,velo.get(1)*-1);
-            enlarge(1.05);
+            enlarge();
         }else if(y<0)
             reset(width, height, true);
         else if(y+r>height)
@@ -84,15 +84,11 @@ public class Ball {
 
     }
 
-    public Point getLocation(){
+    Point getLocation(){
         return new Point((int)Math.round(x),(int)Math.round(y));
     }
 
-    public Vector<Double> getVelo(){
-        return velo;
-    }
-
-    public int getRadius(){
+    int getRadius(){
         return r;
     }
     private void rotate (double degree, int width){
@@ -103,8 +99,8 @@ public class Ball {
             velo.set(1, x * Math.sin(Math.toRadians(degree))+y * Math.cos(Math.toRadians(degree)));
         }
     }
-    private void enlarge(double multiplicator){
-        velo.set(0,(velo.get(0)<5.0&&velo.get(0)>-5.0)?velo.get(0)*multiplicator:velo.get(0));
+    private void enlarge(){
+        velo.set(0,(velo.get(0)<5.0&&velo.get(0)>-5.0)?velo.get(0)* 1.05 :velo.get(0));
         velo.set(1,(velo.get(1)<5.0&&velo.get(1)>-5.0)?velo.get(1)*1.05:velo.get(1));
     }
 

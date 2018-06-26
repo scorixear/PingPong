@@ -6,7 +6,7 @@ public class GameThread extends Thread {
     private Ball ball;
     private Base base, base2;
     private GamePanel panel;
-    public GameThread(Ball b, GamePanel p, Base ba, Base ba2){
+    GameThread(Ball b, GamePanel p, Base ba, Base ba2){
         ball =b;
         panel=p;
         base=ba;
@@ -15,10 +15,11 @@ public class GameThread extends Thread {
 
     @Override
     public void run() {
+        //noinspection InfiniteLoopStatement
         while(true){
 
             double x = 0;
-            double y = 0;
+            double y;
             try{
                 y = panel.getMousePosition().getLocation().getY();
             }catch (NullPointerException ex){

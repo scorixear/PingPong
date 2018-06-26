@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 /**
  * @author Paul Keller
@@ -14,7 +13,7 @@ public class GamePanel extends JPanel {
     private int point1, point2;
     private Font f;
     private int width1, width2;
-    public GamePanel(int width, int height){
+    GamePanel(int width, int height){
         base = new Base(height,this);
         base2 = new Base(100,this);
         ball = new Ball(width/2, height/2,50, base, base2);
@@ -27,7 +26,7 @@ public class GamePanel extends JPanel {
         point(base);
         point(base2);
     }
-    public void start(){
+    void start(){
         thread.start();
     }
 
@@ -48,7 +47,7 @@ public class GamePanel extends JPanel {
 
     }
 
-    public void point(Base base) {
+    void point(Base base) {
         if(base.equals(this.base)){
             point2++;
             width2= (point2+"").chars().mapToObj(i -> (char) i).mapToInt(x ->this.getFontMetrics(f).charWidth(x)).sum();
