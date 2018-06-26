@@ -29,8 +29,7 @@ public class GameThread extends Thread {
 
             }catch (NullPointerException ex){
                 if(y<panel.getHeight()/2)
-                x=base2.x+base2.width/2;
-
+                    x=base2.x+base2.width/2;
             }
             if(y<panel.getHeight()/2)
                 base2.update(x);

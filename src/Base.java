@@ -14,12 +14,12 @@ public class Base {
         panel=p;
     }
     public void update(double x){
-        if(x-width/2<0)
+        x-=width/2;
+        this.x += x>this.x+3?3:x<this.x-3?-3:x-this.x;
+        if(this.x<0)
             this.x=0;
-        else if(x+width/2> panel.getWidth())
+        else if(this.x>panel.getWidth()-width)
             this.x=panel.getWidth()-width;
-        else
-            this.x=((int)x-width/2);
     }
 
     public void point() {

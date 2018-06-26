@@ -22,7 +22,7 @@ public class Ball {
         base2=b2;
         velo=new Vector<>();
         velo.add(Math.random());
-        velo.add(Math.random());
+        velo.add(0.5+Math.random()*0.5);
         normalize();
     }
 
@@ -37,31 +37,36 @@ public class Ball {
         this.lasty=y;
         x+=velo.get(0);
         y+=velo.get(1);
-        if(x<0){
+        if(x<0&&this.lastx-velo.get(0)>=0){
             if(lasty<y)
-                rotate(-90);
+                rotate(-90,width);
             else
-                rotate(90);
+                rotate(90,width);
+
+            //velo.set(0,velo.get(0)*-1);
             enlarge(1.05);
-        } else if(x+r>width){
+        } else if(x+r>width&&this.lastx+velo.get(0)<=width){
             if(lasty<y)
-                rotate(90);
+                rotate(90,width);
             else
-                rotate(-90);
+                rotate(-90,width);
+            //velo.set(0,velo.get(0)*-1);
             enlarge(1.05);
         }
-        if(x>base.x-r/2&&x<base.x+base.width&&y+r>=base.y&&y+r<=base.y+base.height){
+        if(x>base.x-r/2&&x<base.x+base.width&&y+r>=base.y&&y+r<=base.y+base.height&&this.lasty+velo.get(1)<=base.y){
             if(lastx<x)
-                rotate(-90);
+                rotate(-90,width);
             else
-                rotate(90);
+                rotate(90,width);
+            //velo.set(1,velo.get(1)*-1);
             enlarge(1.05);
 
-        } else if(x>base2.x-r/2&&x<base2.x+base2.width&&y<=base2.y+base2.height&&y>=base2.y){
+        } else if(x>base2.x-r/2&&x<base2.x+base2.width&&y<=base2.y+base2.height&&y>=base2.y&&this.lasty-velo.get(1)<base.y){
             if(lastx<x)
-                rotate(90);
+                rotate(90,width);
             else
-                rotate(-90);
+                rotate(-90,width);
+            //velo.set(1,velo.get(1)*-1);
             enlarge(1.05);
         }else if(y<0)
             reset(width, height, true);
@@ -90,12 +95,13 @@ public class Ball {
     public int getRadius(){
         return r;
     }
-    private void rotate (double degree){
-
-        double x = velo.get(0);
-        double y = velo.get(1);
-        velo.set(0,x*Math.cos(Math.toRadians(degree))-y*Math.sin(Math.toRadians(degree)));
-        velo.set(1, x*Math.sin(Math.toRadians(degree))+y*Math.cos(Math.toRadians(degree)));
+    private void rotate (double degree, int width){
+        if((this.x-velo.get(0)<0||this.x+velo.get(0)>width||this.y-velo.get(1)<base.y||this.y+velo.get(1)>base.y)) {
+            double x = velo.get(0);
+            double y = velo.get(1);
+            velo.set(0, x * Math.cos(Math.toRadians(degree))-y * Math.sin(Math.toRadians(degree)));
+            velo.set(1, x * Math.sin(Math.toRadians(degree))+y * Math.cos(Math.toRadians(degree)));
+        }
     }
     private void enlarge(double multiplicator){
         velo.set(0,(velo.get(0)<5.0&&velo.get(0)>-5.0)?velo.get(0)*multiplicator:velo.get(0));

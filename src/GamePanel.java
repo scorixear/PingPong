@@ -19,11 +19,13 @@ public class GamePanel extends JPanel {
         base2 = new Base(100,this);
         ball = new Ball(width/2, height/2,50, base, base2);
         thread=new GameThread(ball,this, base, base2);
-        point1 = 0;
-        point2=0;
+        point1 = -1;
+        point2=-1;
         width1= 0;
         width2= 0;
         f = new Font("LCD2",Font.PLAIN,48);
+        point(base);
+        point(base2);
     }
     public void start(){
         thread.start();
